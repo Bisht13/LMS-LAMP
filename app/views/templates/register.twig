@@ -1,0 +1,65 @@
+{% extends "templates/base.twig" %}
+
+{% block title %}R-Land Library
+{% endblock %}
+
+{% block body %}
+
+	{% include("templates/navbarDefault.twig") %}
+
+
+	<br>
+	<div class="form">
+		<form action="/register" method="POST">
+			<div class="d-flex justify-content-center align-items-center">
+				<h1>Register</h1>
+			</div>
+			<br>
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">Email Address
+				</label>
+				<div class="col-sm-10">
+					<input type="text" name="email" class="form-control" aria-describedby="emailHelp">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">Password
+				</label>
+				<div class="col-sm-10">
+					<input type="password" name="password" class="form-control">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">Confirm Password
+				</label>
+				<div class="col-sm-10">
+					<input type="password" name="confirm_password" class="form-control">
+				</div>
+			</div>
+			<div class="row g-3 align-items-center">
+				<div class="d-flex justify-content-center align-items-center">
+					<input type="submit" value="Register" class="btn btn-primary" id="button">
+				</div>
+			</div>
+		</div>
+		<br>
+		{% if not_same_password %}
+			<p>
+				<em>Passwords are
+					<strong>not same</strong>. Please try again.</em>
+			</p>
+		{% endif %}
+		{% if email_exist %}
+			<p>
+				<em>Email is
+					<strong>already in use</strong>. Please try with a different email.</em>
+			</p>
+		{% endif %}
+		{% if user_added %}
+			<p>
+				<em>User is
+					<strong>successfully added</strong>.</em>
+			</p>
+		{% endif %}
+	</div>
+{% endblock %}

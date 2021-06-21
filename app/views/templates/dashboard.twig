@@ -1,0 +1,46 @@
+{% extends "templates/base.twig" %}
+
+{% block title %}R-Land Library
+{% endblock %}
+
+{% block body %}
+
+	{% include("templates/navbarUser.twig") %}
+
+	<div class="d-flex justify-content-center align-items-center">
+		<h1>Available books</h1>
+	</div>
+	<br>
+	<div class="table-data tableDisplay">
+		<table border="1" class="table table-success table-striped">
+			<tr>
+				<th>Book Name</th>
+				<th>Count</th>
+				<th>Request Checkout</th>
+			</tr>
+
+			{% if tableData != null %}
+				{% for data in tableData %}
+					<tr>
+						<td>
+							{{ data.name }}
+						</td>
+						<td>
+							{{ data.count }}
+						</td>
+						<td>
+							<form action="/dashboard" method="POST">
+								<input type="hidden" value="{{ data.name }}" name="book">
+								<input type="submit" value="Request Checkout" class="btn btn-primary" name="checkout">
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="7">No Data Found</td>
+				</tr>
+			{% endif %}
+		</table>
+	</div>
+{% endblock %}

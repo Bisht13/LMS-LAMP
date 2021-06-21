@@ -1,0 +1,24 @@
+.body {
+  background: rgb(162, 187, 209);
+  color: #0e1829;
+}
+
+.form {
+  margin: auto;
+  width: 50%;
+  background-color: #0e1829;
+  color: rgb(162, 187, 209);
+  padding: 30px;
+  margin-top: 5%;
+  font-size: 1vmax;
+  border-radius: 20px;
+}
+
+#button {
+  font-size: 1.25vmax;
+}
+
+.tableDisplay {
+  margin: auto;
+  width: 75%;
+}

@@ -1,0 +1,37 @@
+{% extends "templates/base.twig" %}
+
+{% block title %}R-Land Library
+{% endblock %}
+
+{% block body %}
+
+	{% include("templates/navbarAdmin.twig") %}
+
+	<div class="d-flex justify-content-center align-items-center">
+		<h1>Add Books</h1>
+	</div>
+	<div class="form">
+		<form action="/admin" method="POST">
+			<br>
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">Book Name
+				</label>
+				<div class="col-sm-10">
+					<input type="text" name="bookname" class="form-control" aria-describedby="emailHelp">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">Quantity
+				</label>
+				<div class="col-sm-10">
+					<input type="text" name="quantity" class="form-control" aria-describedby="emailHelp">
+				</div>
+			</div>
+			<div class="row g-3 align-items-center">
+				<div class="d-flex justify-content-center align-items-center">
+					<input type="submit" value="Enter" class="btn btn-primary" id="button">
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}
