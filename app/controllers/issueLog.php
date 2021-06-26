@@ -5,7 +5,8 @@ class IssueLog
 {
     public function get()
     {
-        session_start();
+        \Controller\Utils::loggedInAdmin();
+
         $issueData = \Model\IssueLog::issueLog();
         for ($i = 0;$i < sizeof($issueData);$i++)
         {
@@ -20,20 +21,10 @@ class IssueLog
                 $issueData[$i]['fine'] = $differenceInDays;
             }
         }
-        if ($_SESSION['logged_in'] && $_SESSION['admin'])
-        {
-            echo \View\Loader::make()->render("templates/issueLog.twig", array(
-                "issueData" => $issueData,
-            ));
-        }
-        else
-        {
-            echo \View\Loader::make()->render("templates/login.twig", array());
-        }
-    }
 
-    public function post()
-    {
+        echo \View\Loader::make()->render("templates/issueLog.twig", array(
+            "issueData" => $issueData,
+        ));
 
     }
 }

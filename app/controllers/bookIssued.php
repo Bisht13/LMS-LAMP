@@ -1,44 +1,40 @@
 <?php
 namespace Controller;
+session_start();
 
 class BookIssued
 {
     public function get()
     {
-        session_start();
-        if ($_SESSION['logged_in'])
+        \Controller\Utils::loggedInUser();
+
+        $userData = \Model\BookIssued::issuedBooks($_SESSION['email']);
+        for ($i = 0;$i < sizeof($userData);$i++)
         {
-            $userData = \Model\BookIssued::issuedBooks($_SESSION['email']);
-            for ($i = 0;$i < sizeof($userData);$i++)
+            $differenceInTime = strtotime(date('Y-m-d H:i:s')) - strtotime($userData[$i]['returnby']);
+            $differenceInDays = round($differenceInTime / (60 * 60 * 24));
+            if ($differenceInDays <= 0)
             {
-                $differenceInTime = strtotime(date('Y-m-d H:i:s')) - strtotime($userData[$i]['returnby']);
-                $differenceInDays = round($differenceInTime / (60 * 60 * 24));
-                if ($differenceInDays <= 0)
-                {
-                    $userData[$i]['fine'] = 0;
-                }
-                else
-                {
-                    $userData[$i]['fine'] = $differenceInDays;
-                }
+                $userData[$i]['fine'] = 0;
             }
-            echo \View\Loader::make()->render("templates/bookIssued.twig", array(
-                "userData" => $userData,
-            ));
+            else
+            {
+                $userData[$i]['fine'] = $differenceInDays;
+            }
         }
-        else
-        {
-            echo \View\Loader::make()->render("templates/login.twig", array());
-        }
+        echo \View\Loader::make()->render("templates/bookIssued.twig", array(
+            "userData" => $userData,
+        ));
     }
 
     public function post()
     {
-        session_start();
-        if ($_POST['uuid'] != null)
+        \Controller\Utils::loggedInUser();
+
+        if(\Controller\Utils::checkVariableSet($_POST['uuid']))
         {
             \Model\BookIssued::returnBook($_POST['uuid']);
-            header("Location: bookIssued");
         }
+        header("Location: bookIssued");
     }
 }

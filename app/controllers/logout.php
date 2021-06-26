@@ -1,5 +1,6 @@
 <?php
 namespace Controller;
+session_start();
 
 class Logout
 {
@@ -10,8 +11,6 @@ class Logout
 
     public function post()
     {
-        var_dump($_POST);
-        session_start();
         session_unset();
         session_destroy();
         header("Location: login");

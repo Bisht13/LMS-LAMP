@@ -1,11 +1,11 @@
 <?php
 namespace Controller;
+session_start();
 
 class Login
 {
     public function get()
     {
-        session_start();
         if ($_SESSION['logged_in'])
         {
             if ($_SESSION['admin'])
@@ -25,14 +25,13 @@ class Login
 
     public function post()
     {
-        session_start();
         $_SESSION['logged_in'] = false;
         $email = $_POST["email"];
-        if (\Model\Login::find($email) != null)
+        if (\Model\Login::find($email) !== null)
         {
             $password = $_POST["password"];
             $db_password = \Model\Login::find($email) ["password"];
-            if (hash("sha512", $password) == $db_password)
+            if (hash("sha512", $password) === $db_password)
             {
                 $_SESSION['uuid'] = \Model\Login::find($email) ["uuid"];
                 $_SESSION['email'] = \Model\Login::find($email) ["email"];

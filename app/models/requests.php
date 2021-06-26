@@ -22,11 +22,9 @@ class Requests
         return $row;
     }
 
-    public static function accept($email, $uuid)
+    public static function accept($email, $uuid, $date, $returnDate)
     {
         $db = \DB::get_instance();
-        $date = date('Y-m-d H:i:s');
-        $returnDate = date('Y-m-d H:i:s', strtotime($date . ' + 14 days'));
         $stmt = $db->prepare("update books set issuereq=null,issuedby=?,issuedon=?,returnby=? where uuid=?;");
         $stmt->execute([$email, $date, $returnDate, $uuid]);
     }
